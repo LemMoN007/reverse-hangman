@@ -10,7 +10,6 @@ import java.util.*;
  * only 8 guesses available.
  *
  * @version 1.0
- * @author Toader George-Catalin
  */
 class Game {
     private final List<String> bank;
@@ -77,6 +76,7 @@ class Game {
         Scanner s = new Scanner(System.in);
         String answer = s.next();
         List<Integer> indicies = new ArrayList<>();
+	    
         if (answer.toLowerCase().contains("y")) {
             int index = 0;
             while (index != -2) {
@@ -162,8 +162,6 @@ class Game {
         else {
             copy.forEach(word -> Arrays.stream(indices)
                     .filter(index -> word.charAt(index) != key)
-                    // ATENTIE MARE AICI!!! mapToObj aici e ca si cum ar face "index -> return word", deci singurul rol
-                    // e acela de a returna cuvantul mare pentru a-l putea sterge apoi, index nu face absolut nimic
                     .mapToObj(index -> word)
                     .forEach(bank::remove));
         }
@@ -196,7 +194,7 @@ public class Main {
     public static void main(final String[] args) {
         System.out.println("Welcome, this program is named Reverse-Hangman.");
         System.out.println("Enter the number of letters your chosen word has: ");
-	    Game game = new Game(new Scanner(System.in).nextInt());
+	Game game = new Game(new Scanner(System.in).nextInt());
         boolean result = game.Play();
         System.out.println(result ? "I won." : "I lost.");
         System.out.println("Thanks for playing, see you next time.");
